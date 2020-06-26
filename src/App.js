@@ -1,13 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
+import styled from 'styled-components';
+import { theme } from './theme/'
 
-class App extends Component {
-  render(){
+const AppContainer = styled.div`
+  font-family: sans-serif;
+  color: ${({theme}) => theme.colours.mainColor};
+ `;
+
+const App = () => {
     return(
-      <div className="App">
+      <AppContainer className="App" theme={theme}>
         <h1> Hello, World! </h1>
-      </div>
-    );
-  }
-}
+      </AppContainer>
+    )
+};
 
 export default App;
