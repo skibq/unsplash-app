@@ -22,3 +22,6 @@ dist/
 
 # dotenv environment variables file
 .env
+
+# IDE, code editor
+.idea/
