@@ -1,17 +1,12 @@
 import React from "react";
-import styled from 'styled-components';
-import { theme } from './theme';
 import { routes } from './pages';
+import { Layout } from './theme/layout';
+
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
-
-const AppContainer = styled.div`
-  font-family: sans-serif;
-  color: ${({theme}) => theme.colors.mainColor}
-`;
 
 const Routes = () => {
     return routes.map((route) => {
@@ -25,13 +20,13 @@ const Routes = () => {
 
 const App: React.FC = () => {
     return(
-        <AppContainer className="App" theme={theme}>
-            <Router>
+        <Router>
+            <Layout>
                 <Switch>
                     { Routes() }
                 </Switch>
-            </Router>
-        </AppContainer>
+            </Layout>
+        </Router>
     )
 };
 
