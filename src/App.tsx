@@ -1,13 +1,13 @@
 import React from "react";
 import styled from 'styled-components';
-import { theme } from './theme/'
+import { theme } from './theme';
 
 const AppContainer = styled.div`
   font-family: sans-serif;
-  color: ${({theme}) => theme.colours.mainColor};
- `;
+  color: ${({theme}) => theme.colors.mainColor}
+`;
 
-const App = () => {
+const App: React.FC = () => {
     return(
       <AppContainer className="App" theme={theme}>
         <h1> Hello, World! </h1>
