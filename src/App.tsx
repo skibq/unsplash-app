@@ -1,7 +1,7 @@
 import React from "react";
 import { routes } from './pages';
 import { Layout } from './theme/layout';
-
+import "./theme/styles.scss"
 import {
     BrowserRouter as Router,
     Switch,
