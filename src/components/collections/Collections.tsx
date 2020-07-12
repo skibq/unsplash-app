@@ -1,30 +1,21 @@
-import React, { useState, useEffect } from "react";
-import unsplash from "../../services/unsplash";
-import Collection from "./Collection";
-import styled from "styled-components";
+import React from "react";
+import { Link } from "react-router-dom";
+import { ICollection } from "./Collection";
+import CollectionContainer from "./CollectionContainer";
+import { CollectionsWrapper } from './CollectionStyledComponents';
 
-const CollectionsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-`;
+interface ICollectionProps {
+  collections: Array<ICollection>;
+}
 
-export const Collections = () => {
-  const [collections, updateCollections] = useState([]);
-
-  const fetchCollectionsList = () => {
-    unsplash.collections.listCollections()
-        .then(rawData => rawData.json())
-        .then(res => updateCollections(res));
-  };
-
-  useEffect(() => {
-    fetchCollectionsList()
-  }, []);
-
+const Collections = ({ collections }: ICollectionProps) => {
   const CollectionsList = collections.map((collection) => {
-    return <Collection key={collection.id} collection={collection} />
+    const collectionLink = `/collection/${collection.id}`;
+
+    return <Link to={collectionLink} key={collection.id}><CollectionContainer collection={collection} /></Link>
   });
 
-  return <CollectionsContainer>{ CollectionsList }</CollectionsContainer>;
+  return <CollectionsWrapper>{ CollectionsList }</CollectionsWrapper>;
 };
+
+export default Collections;

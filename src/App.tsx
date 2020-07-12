@@ -1,12 +1,12 @@
 import React from "react";
-import { routes } from './pages';
-import { Layout } from './theme/layout';
-import "./theme/styles.scss"
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
+import { routes } from './pages/router';
+import { Layout } from './theme/layout';
+import "./theme/styles.scss"
 
 const Routes = () => {
     return routes.map((route) => {

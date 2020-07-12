@@ -1,4 +1,5 @@
 import MainPage from './MainPage';
+import SingleCollection from './SingleCollection';
 
 export interface route {
     name: string,
@@ -7,5 +8,6 @@ export interface route {
 }
 
 export const routes: Array<route> = [
+    SingleCollection,
     MainPage
 ];

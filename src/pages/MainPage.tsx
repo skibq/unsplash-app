@@ -1,12 +1,12 @@
 import React from "react";
-import { route } from './index'
-import { Collections } from "../components/collections/Collections"
+import { route } from './router'
+import CollectionsContainer from "../components/collections/CollectionsContainer"
 
 const name = 'Main Page';
-const path = '';
+const path = '/';
 
 const MainPage = () => {
-    return <Collections />
+    return <CollectionsContainer />
 };
 
 export default {

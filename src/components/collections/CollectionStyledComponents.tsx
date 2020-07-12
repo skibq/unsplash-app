@@ -3,7 +3,13 @@ import styled from "styled-components";
 const collectionSize = 300;
 const thumbMargin = 5;
 
-export const CollectionContainer = styled.div`
+export const CollectionsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+`;
+
+export const CollectionWrapper = styled.div`
     margin: 40px 0;
     width: ${collectionSize}px;
     @media (min-width: 600px) {

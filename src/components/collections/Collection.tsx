@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
-import unsplash from "../../services/unsplash";
-import { ThumbnailContainer, ThumbnailsContainer, Thumbnail, CollectionTitle, CollectionContainer } from "./CollectionStyledComponents";
+import React from "react";
+import { ThumbnailContainer, ThumbnailsContainer, Thumbnail, CollectionTitle, CollectionWrapper } from "./CollectionStyledComponents";
 
-interface ICollection {
+export interface ICollection {
     id: number;
     title: string;
+    photos: Array<IImage>;
+    nextPageToFetch: number;
+    photosAreFetching: boolean;
 }
 interface ICollectionProps {
     collection: ICollection;
 }
-interface IImage {
+export interface IImage {
     id: string;
     alt_description: string;
     urls: {
@@ -22,16 +24,8 @@ interface IImage {
 }
 
 const Collection: React.FC<ICollectionProps> = ({collection}) => {
-    const [collectionPhotos, updateCollectionPhotos] = useState([]);
-
-    useEffect(() => {
-        unsplash.collections.getCollectionPhotos(collection.id)
-            .then(rawData => rawData.json())
-            .then(res => updateCollectionPhotos(res));
-    }, []);
-
     const CollectionThumbnails = () => {
-        const thumbnails =  collectionPhotos.map((image:  IImage) => {
+        const thumbnails = collection.photos.map((image:  IImage) => {
             return (
                 <ThumbnailContainer key={image.id}>
                     <Thumbnail
@@ -44,12 +38,12 @@ const Collection: React.FC<ICollectionProps> = ({collection}) => {
     };
 
     return(
-        <CollectionContainer>
+        <CollectionWrapper>
             <CollectionTitle>{ collection.title }</CollectionTitle>
             <ThumbnailsContainer>
                 <CollectionThumbnails />
             </ThumbnailsContainer>
-        </CollectionContainer>
+        </CollectionWrapper>
     )
 };
 
