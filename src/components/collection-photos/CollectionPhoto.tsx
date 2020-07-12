@@ -34,10 +34,15 @@ const Overlay = styled.div`
 `;
 
 const OverlayContent = ({image}: {image: IImage}) => {
+    const Country = () => (
+        image.location && image.location.country ? <p>Country: {image.location.country}</p> : <></>
+    );
+
     return(
         <>
             <p>Likes: {image.likes}</p>
             <p>Downloads: {image.downloads}</p>
+            <Country />
         </>
     )
 };

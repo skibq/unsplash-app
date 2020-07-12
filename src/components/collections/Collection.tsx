@@ -13,10 +13,15 @@ interface ICollectionProps {
 }
 export interface IImage {
     id: string;
+    description: string;
     extendedPhotoInfo: Boolean;
     alt_description: string;
     likes: number;
     downloads?: number;
+    location: {
+        country: string;
+        city: string;
+    };
     urls: {
         full: string;
         raw: string;

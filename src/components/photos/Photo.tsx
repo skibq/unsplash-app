@@ -1,13 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-
-interface rawImage {
-    likes: number,
-    description: string,
-    urls: {
-        regular: string,
-    }
-}
+import { IImage } from "../collections/Collection";
 
 const Image = styled.img`
     width: auto;
@@ -24,7 +17,7 @@ const ImageTitle = styled.h1`
     font-size: 26px;
 `;
 
-const Photo = ({photo}: {photo: rawImage}) => {
+const Photo = ({photo}: {photo: IImage}) => {
     const LikesWrapper = ({children}: {children: number}) => <Likes>Likes - {children}</Likes>;
 
     return(
