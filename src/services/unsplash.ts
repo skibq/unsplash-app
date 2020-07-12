@@ -15,7 +15,7 @@ export const getCollectionImages = (collectionId: number, page: number = 1): Pro
         .then(rawData => rawData.json())
 };
 
-export const getCollectionImage = (photoId: string) => {
+export const getImage = (photoId: string) => {
     return unsplash.photos.getPhoto(photoId).then(rawData => rawData.json())
 };
 

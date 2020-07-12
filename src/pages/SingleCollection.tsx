@@ -1,6 +1,6 @@
 import React from "react";
 import { route } from './router'
-import CollectionPhotosContainer from "../components/photos/CollectionPhotosContainer"
+import CollectionPhotosContainer from "../components/collection-photos/CollectionPhotosContainer"
 
 
 const name = 'SingleCollection';

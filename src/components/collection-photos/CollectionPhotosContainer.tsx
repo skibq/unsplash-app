@@ -16,7 +16,7 @@ const getCollectionByCollectionId = (collections: Array<ICollection>, collection
 };
 
 const isBottomReached = () => {
-    return window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight;
+    return window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight;
 };
 
 const CollectionPhotosContainer = ({ collections }: PropsFromRedux) => {
@@ -35,7 +35,7 @@ const CollectionPhotosContainer = ({ collections }: PropsFromRedux) => {
     };
 
     const handleScroll = () => {
-        if (!isBottomReached) return;
+        if (!isBottomReached()) return;
         setNeedToFetchImages(true)
     };
 
@@ -47,7 +47,6 @@ const CollectionPhotosContainer = ({ collections }: PropsFromRedux) => {
 
     useEffect(() => {
         if (!needToFetchImages) return;
-        console.log(collection.nextPageToFetch);
         // @ts-ignore todo: fix issue with types
         store.dispatch(getCollectionPhotos(parsedCollectionId, collection.nextPageToFetch)).then(() => {
             setNeedToFetchImages(false);
@@ -55,7 +54,7 @@ const CollectionPhotosContainer = ({ collections }: PropsFromRedux) => {
     }, [needToFetchImages]);
 
 
-    return <CollectionPhotos photos={collection ? collection.photos : []} />
+    return collection ? <CollectionPhotos photos={collection.photos} collectionId={collection.id} /> : <></>
 };
 
 const mapStateToProps = (state: IGlobalState) => ({

@@ -1,5 +1,5 @@
 import { ICollection, IImage } from '../../components/collections/Collection'
-import { getCollectionImages, getCollectionsList } from '../../services/unsplash'
+import { getCollectionImages, getCollectionsList, getImage } from '../../services/unsplash'
 import { AppThunk } from "../index"
 
 interface IAddPhotos {
@@ -11,16 +11,23 @@ interface IUpdateCollections {
     collections: Array<ICollection>;
 }
 
+interface IUpdateCollectionPhoto {
+    photoId: string,
+    collectionId: number,
+    photo: IImage,
+}
+
 export enum ActionTypes {
     UPDATE_COLLECTIONS = 'UPDATE_COLLECTIONS',
     ADD_PHOTOS_TO_COLLECTION = 'ADD_PHOTOS_TO_COLLECTION',
     START_FETCHING_COLLECTION_PHOTOS = 'START_FETCHING_COLLECTION_PHOTOS',
     FINISH_FETCHING_COLLECTION_PHOTOS = 'FINISH_FETCHING_COLLECTION_PHOTOS',
     INCREASE_REACHED_PAGE = 'INCREASE_REACHED_PAGE',
+    EXTEND_COLLECTION_PHOTO = 'EXTEND_COLLECTION_PHOTO',
 
 }
 
-export interface ICollectionActions extends IUpdateCollections, IAddPhotos {
+export interface ICollectionActions extends IUpdateCollections, IAddPhotos, IUpdateCollectionPhoto {
     type: ActionTypes
 }
 
@@ -37,6 +44,13 @@ export const finishFetchingCollectionPhotos = (collectionId: number) => ({
 export const increaseReachedPage = (collectionId: number) => ({
     type: ActionTypes.INCREASE_REACHED_PAGE,
     collectionId
+});
+
+export const updateCollectionPhoto = ({collectionId, photoId, photo}: IUpdateCollectionPhoto) => ({
+    type: ActionTypes.EXTEND_COLLECTION_PHOTO,
+    collectionId,
+    photoId,
+    photo
 });
 
 export const updateCollections = ({collections}: IUpdateCollections) => {
@@ -73,6 +87,12 @@ export const getCollectionPhotos = (id: number, nextPageToFetch: number = 1): Ap
     return getCollectionImages(id, nextPageToFetch).then((photos) => {
         dispatch(addPhotosToCollection({photos, collectionId: id}));
         dispatch(finishFetchingCollectionPhotos(id));
-        dispatch(increaseReachedPage(id))
+        dispatch(increaseReachedPage(id));
     });
+};
+
+export const extendCollectionPhotoInfo = (collectionId: number, photoId: string): AppThunk => dispatch => {
+    return getImage(photoId).then((photo) => {
+        dispatch(updateCollectionPhoto({collectionId, photoId, photo}))
+    })
 };

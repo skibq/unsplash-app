@@ -13,7 +13,10 @@ interface ICollectionProps {
 }
 export interface IImage {
     id: string;
+    extendedPhotoInfo: Boolean;
     alt_description: string;
+    likes: number;
+    downloads?: number;
     urls: {
         full: string;
         raw: string;
@@ -25,7 +28,8 @@ export interface IImage {
 
 const Collection: React.FC<ICollectionProps> = ({collection}) => {
     const CollectionThumbnails = () => {
-        const thumbnails = collection.photos.map((image:  IImage) => {
+        const collectionPhotos = collection.photos.slice(0, 10);
+        const thumbnails = collectionPhotos.map((image:  IImage) => {
             return (
                 <ThumbnailContainer key={image.id}>
                     <Thumbnail

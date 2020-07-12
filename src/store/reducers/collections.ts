@@ -11,6 +11,13 @@ const collections = (state: Array<ICollection> = [], action: ICollectionActions)
 
                 return {...collection, photos: [...collection.photos, ...action.photos ]}
             });
+        case ActionTypes.EXTEND_COLLECTION_PHOTO:
+            return state.map((collection) => {
+                const updatedPhotos = collection.photos.map((photo) => {
+                    return photo.id === action.photoId ? {...photo, ...action.photo, extendedPhotoInfo: true} : photo
+                });
+                return {...collection, photos: updatedPhotos}
+            });
         case ActionTypes.START_FETCHING_COLLECTION_PHOTOS:
             return state.map((collection) => {
                 if (collection.id !== action.collectionId) return collection;
